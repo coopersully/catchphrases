@@ -3,16 +3,14 @@
 {% block content %}
     <h1>{{ category.name }}</h1>
     <p>{{ category.description }}</p>
-    <h2 id="current_phrase">{{ current_phrase }}</h2>
+    <h2 id="current_phrase"></h2>
 
     <div id="timer">
         Time remaining: <span id="time">60</span> seconds
     </div>
 
-    <form method="POST" id="phraseForm">
-        <button type="submit" name="action" value="Previous" class="btn btn-primary">Previous</button>
-        <button type="submit" name="action" value="Next" class="btn btn-primary">Next</button>
-    </form>
+    <button id="previousButton" class="btn btn-primary" disabled>Previous</button>
+    <button id="nextButton" class="btn btn-primary">Next</button>
 {% endblock %}
 
 {% block scripts %}
@@ -20,6 +18,32 @@
         $(document).ready(function () {
             var timeLeft = 60;
             var countdown;
+            var phrases = {{ category.entries | tojson }};
+            var current_index = -1;
+
+            function showPhrase(index) {
+                $("#current_phrase").text(phrases[index]);
+                current_index = index;
+                // Disable "Previous" button if this is the first phrase
+                $("#previousButton").prop('disabled', index === 0);
+                // Disable "Next" button if this is the last phrase
+                $("#nextButton").prop('disabled', index === phrases.length - 1);
+            }
+
+            // Show the first phrase initially
+            showPhrase(0);
+
+            $("#nextButton").click(function() {
+                if (current_index < phrases.length - 1) {
+                    showPhrase(current_index + 1);
+                }
+            });
+
+            $("#previousButton").click(function() {
+                if (current_index > 0) {
+                    showPhrase(current_index - 1);
+                }
+            });
 
             countdown = setInterval(function () {
                 timeLeft--;
@@ -29,22 +53,6 @@
                     window.location.href = "/times_up";
                 }
             }, 1000);
-
-            $("#phraseForm").submit(function (e) {
-                e.preventDefault();
-
-                $.ajax({
-                    type: "POST",
-                    url: "",
-                    data: $(this).serialize(),
-                    success: function (data) {
-                        $("#current_phrase").text(data.current_phrase);
-                    },
-                    error: function (xhr, status, error) {
-                        console.error("AJAX error: " + status + " : " + xhr.responseText);
-                    }
-                });
-            });
         });
     </script>
 {% endblock %}
