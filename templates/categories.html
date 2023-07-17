@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Welcome to the Catch Phrase Game!</h1>
+    <h2>Please select a category:</h2>
+    <ul class="list-group">
+        {% for category in categories %}
+            <li class="list-group-item">
+                <a href="{{ url_for('category', category_name=category.filename) }}">
+                    {{ category.name }}: {{ category.description }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

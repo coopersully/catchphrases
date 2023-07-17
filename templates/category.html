@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ category.name }}</h1>
+    <p>{{ category.description }}</p>
+    <h2 id="current_phrase">{{ current_phrase }}</h2>
+
+    <div id="timer">
+        Time remaining: <span id="time">60</span> seconds
+    </div>
+
+    <form method="POST" id="phraseForm">
+        <button type="submit" name="action" value="Previous" class="btn btn-primary">Previous</button>
+        <button type="submit" name="action" value="Next" class="btn btn-primary">Next</button>
+    </form>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        $(document).ready(function () {
+            var timeLeft = 60;
+            var countdown;
+
+            countdown = setInterval(function () {
+                timeLeft--;
+                document.getElementById('time').textContent = timeLeft;
+                if (timeLeft <= 0) {
+                    clearInterval(countdown);
+                    window.location.href = "/times_up";
+                }
+            }, 1000);
+
+            $("#phraseForm").submit(function (e) {
+                e.preventDefault();
+
+                $.ajax({
+                    type: "POST",
+                    url: "",
+                    data: $(this).serialize(),
+                    success: function (data) {
+                        $("#current_phrase").text(data.current_phrase);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("AJAX error: " + status + " : " + xhr.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}
