@@ -1,7 +1,7 @@
 import json
 import os
 
-from flask import Flask, render_template
+from flask import Flask, render_template, url_for
 from random import shuffle
 
 app = Flask(__name__)
@@ -29,7 +29,11 @@ def category(category_name):
 
     # Randomize the order of entries
     shuffle(category['entries'])
-    return render_template('category.html', category=category)
+
+    # Get sound url
+    sound_url = url_for('static', filename='audio/tick.wav')
+
+    return render_template('category.html', category=category, sound_url=sound_url)
 
 
 @app.route('/times_up')

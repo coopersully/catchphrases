@@ -21,6 +21,16 @@
             var phrases = {{ category.entries | tojson }};
             var current_index = -1;
 
+            let audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            let timerSound = null;
+
+            fetch('{{ sound_url }}')
+                .then(response => response.arrayBuffer())
+                .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
+                .then(audioBuffer => {
+                    timerSound = audioBuffer;
+                });
+
             function showPhrase(index) {
                 $("#current_phrase").text(phrases[index]);
                 current_index = index;
@@ -47,6 +57,15 @@
 
             countdown = setInterval(function () {
                 timeLeft--;
+
+                if (timerSound) {
+                    let source = audioContext.createBufferSource();
+                    source.buffer = timerSound;
+                    source.playbackRate.value = 1 + (60 - timeLeft) / 60;  // Speed up as time decreases
+                    source.connect(audioContext.destination);
+                    source.start();
+                }
+
                 document.getElementById('time').textContent = timeLeft;
                 if (timeLeft <= 0) {
                     clearInterval(countdown);
