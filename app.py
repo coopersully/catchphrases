@@ -9,6 +9,11 @@ app.secret_key = os.urandom(12)
 
 
 @app.route('/')
+def home():
+    return render_template('index.html')
+
+
+@app.route('/categories')
 def categories():
     categories = []
     for filename in os.listdir('categories'):
@@ -20,6 +25,11 @@ def categories():
                 "filename": filename
             })
     return render_template('categories.html', categories=categories)
+
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
 
 @app.route('/category/<string:category_name>', methods=['GET'])
@@ -41,7 +51,6 @@ def category(category_name):
 
 @app.route('/times_up')
 def times_up():
-
     # Get sound url
     sound_url = url_for('static', filename='audio/alarm.wav')
 

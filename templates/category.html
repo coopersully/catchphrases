@@ -20,7 +20,7 @@
                     </button>
                 </div>
                 <div class="card-footer text-center" id="timer">
-                    <span id="time">{{ time }}</span> second(s) remaining
+                    Describe the word above to your teammates!
                 </div>
             </div>
         </div>
@@ -49,8 +49,10 @@
             function showPhrase(index) {
                 $("#current_phrase").text(phrases[index]);
                 current_index = index;
+
                 // Disable "Previous" button if this is the first phrase
                 $("#previousButton").prop('disabled', index === 0);
+
                 // Disable "Next" button if this is the last phrase
                 $("#nextButton").prop('disabled', index === phrases.length - 1);
             }
@@ -76,12 +78,14 @@
                 if (timerSound) {
                     let source = audioContext.createBufferSource();
                     source.buffer = timerSound;
-                    source.playbackRate.value = 1 + ({{ time }} -timeLeft) / {{ time }};  // Speed up as time decreases
+
+                    // Speed up as time decreases
+                    source.playbackRate.value = 1 + ({{ time }} -timeLeft) / {{ time }};
+
                     source.connect(audioContext.destination);
                     source.start();
                 }
 
-                document.getElementById('time').textContent = timeLeft;
                 if (timeLeft <= 0) {
                     clearInterval(countdown);
                     window.location.href = "/times_up";

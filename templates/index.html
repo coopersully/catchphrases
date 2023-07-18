@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="d-flex align-items-center justify-content-center vh-100">
+        <div class="col">
+            <div class="row text-center">
+                <h1 class="display-1 fw-bold text-light">Catchphrases!</h1>
+            </div>
+            <br>
+            <div class="d-flex justify-content-center">
+                <a href="{{ url_for('categories') }}" class="btn btn-primary me-2">Play</a>
+                <a href="{{ url_for('about') }}" class="btn btn-secondary me-2">About</a>
+                <a href="https://github.com/coopersully" class="btn btn-secondary me-2">Author</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
