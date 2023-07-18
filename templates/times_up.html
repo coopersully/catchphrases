@@ -31,7 +31,7 @@
             let audioContext = new (window.AudioContext || window.webkitAudioContext)();
             let timerSound = null;
 
-            fetch({{ sound_url }})
+            fetch('{{ sound_url }}')
                 .then(response => response.arrayBuffer())
                 .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
                 .then(audioBuffer => {
