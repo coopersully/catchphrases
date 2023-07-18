@@ -1,8 +1,9 @@
 import json
 import os
+import random
 
 from flask import Flask, render_template, url_for
-from random import shuffle
+from random import shuffle, randint
 
 app = Flask(__name__)
 app.secret_key = os.urandom(12)
@@ -33,7 +34,10 @@ def category(category_name):
     # Get sound url
     sound_url = url_for('static', filename='audio/tick.wav')
 
-    return render_template('category.html', category=category, sound_url=sound_url)
+    # Generate random timer
+    seconds = randint(30, 90)
+
+    return render_template('category.html', category=category, sound_url=sound_url, time=seconds)
 
 
 @app.route('/times_up')
