@@ -1,27 +1,30 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>{{ category.name }}</h1>
-    <p>{{ category.description }}</p>
 
-    <div class="card">
-        <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center">
-                <button id="previousButton" class="btn btn-primary btn-lg" disabled>
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <h2 class="display-1 fw-bold" id="current_phrase"></h2>
-                <button id="nextButton" class="btn btn-primary btn-lg">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
+    <div class="d-flex align-items-center justify-content-center vh-100">
+        <div class="card" style="min-width: 45vw;">
+            <div class="card-body">
+                <div class="card-header text-center" id="timer">
+                    <b>{{ category.name }}</b>
+                    <br>
+                    {{ category.description }}
+                </div>
+                <div class="d-flex justify-content-between align-items-center" style="min-height: 25vh;">
+                    <button id="previousButton" class="btn btn-primary btn-lg" disabled>
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <h2 class="display-1 fw-bold" id="current_phrase"></h2>
+                    <button id="nextButton" class="btn btn-primary btn-lg">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                <div class="card-footer text-center" id="timer">
+                    <span id="time">{{ time }}</span> second(s) remaining
+                </div>
             </div>
         </div>
     </div>
-
-
-    {#    <div id="timer">#}
-    {#        Time remaining: <span id="time">{{ time }}</span> seconds#}
-    {#    </div>#}
 
 {% endblock %}
 

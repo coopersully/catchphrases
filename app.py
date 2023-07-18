@@ -1,9 +1,8 @@
 import json
 import os
-import random
+from random import shuffle, randint
 
 from flask import Flask, render_template, url_for
-from random import shuffle, randint
 
 app = Flask(__name__)
 app.secret_key = os.urandom(12)
