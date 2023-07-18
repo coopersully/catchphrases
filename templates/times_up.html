@@ -1,6 +1,42 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Time's up!</h1>
-    <a href="/" class="btn btn-primary">Go back to the main menu</a>
+    <div class="d-flex align-items-center justify-content-center vh-100">
+        <div class="col">
+            <div class="row text-center">
+                <h1 class="display-1 fw-bold text-danger">Time's Up!</h1>
+            </div>
+            <div class="row text-center">
+                <a href="/" class="btn btn-primary btn-sm">Go back to the main menu</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        $(document).ready(function () {
+            let audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            let timerSound = null;
+
+            fetch({{ sound_url }})
+                .then(response => response.arrayBuffer())
+                .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
+                .then(audioBuffer => {
+                    timerSound = audioBuffer;
+                    playTimerSound();
+                });
+
+            function playTimerSound() {
+                if (timerSound) {
+                    let source = audioContext.createBufferSource();
+                    source.buffer = timerSound;
+                    source.connect(audioContext.destination);
+                    source.start();
+                }
+            }
+
+            playTimerSound();
+        });
+    </script>
 {% endblock %}

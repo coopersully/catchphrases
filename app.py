@@ -42,7 +42,11 @@ def category(category_name):
 
 @app.route('/times_up')
 def times_up():
-    return render_template('times_up.html')
+
+    # Get sound url
+    sound_url = url_for('static', filename='audio/alarm.wav')
+
+    return render_template('times_up.html', sound_url=sound_url)
 
 
 if __name__ == '__main__':
