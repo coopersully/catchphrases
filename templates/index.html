@@ -2,16 +2,15 @@
 
 {% block content %}
 
-    <div class="d-flex align-items-center justify-content-center vh-100">
-        <div class="col">
-            <div class="row text-center">
-                <h1 class="display-1 fw-bold text-light">Catchphrases!</h1>
-            </div>
-            <br>
-            <div class="d-flex justify-content-center">
-                <a href="{{ url_for('categories') }}" class="btn btn-primary me-2">Play</a>
-                <a href="{{ url_for('about') }}" class="btn btn-secondary me-2">About</a>
-                <a href="https://github.com/coopersully" class="btn btn-secondary me-2">Author</a>
+    <div class="d-flex justify-content-center align-items-center text-center" style="height: 75vh;">
+        <div class="px-4 pt-5 my-5">
+            <h1 class="display-1 fw-bold text-light">Catchphrases!</h1>
+            <div class="col-lg-6 mx-auto mt-5">
+                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
+                    <a href="{{ url_for('categories') }}" class="btn btn-primary me-2">Play</a>
+                    <a href="{{ url_for('about') }}" class="btn btn-secondary me-2">About</a>
+                    <a href="https://github.com/coopersully" class="btn btn-secondary me-2">Author</a>
+                </div>
             </div>
         </div>
     </div>

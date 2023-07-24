@@ -1,15 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="container">
-        <h1 class="mb-4 text-light">Welcome to Catchphrases!</h1>
-        <div class="text-body-secondary mb-4">
-            Catchphrases is an exciting word-guessing game that tests your quick thinking and communication skills.
-            The objective of the game is to guess the word or phrase based on the clues given to you.
-            Gather your friends, select a category, and take turns describing the phrases without using the actual
-            words! Race against the clock to see how many phrases your team can guess before time runs out.
-            Get ready for a fun-filled and fast-paced game that will keep you entertained for hours!
-        </div>
+
+    <div class="container mt-5 mb-5">
         <h2 class="mb-3 text-light">Select the deck you'd like to play with:</h2>
         <div class="list-group">
             {% for category in categories %}
@@ -25,4 +18,5 @@
             {% endfor %}
         </div>
     </div>
+
 {% endblock %}
