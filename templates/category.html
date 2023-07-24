@@ -3,18 +3,17 @@
 {% block content %}
     <div class="row align-items-center text-center" style="height: 80vh; width: 100vw;">
 
-        <div class="col">
+        <div class="col-2">
             <button id="previousButton" class="btn btn-primary btn-lg" disabled>
                 <i class="fas fa-chevron-left"></i>
             </button>
         </div>
 
-        <div class="col">
-            <h2 class="display-1 fw-bold" id="current_phrase"></h2>
-
+        <div class="col-8" style="max-width: 100%; overflow-x: auto;">
+            <h2 class="fw-bold" id="current_phrase" style="font-size: calc(6vw + 2vh); white-space: pre-wrap;"></h2>
         </div>
 
-        <div class="col">
+        <div class="col-2">
             <button id="nextButton" class="btn btn-primary btn-lg">
                 <i class="fas fa-chevron-right"></i>
             </button>
